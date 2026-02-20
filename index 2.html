@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 18th Birthday Mrithun! 🐺🏎️</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- React Dependencies -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <!-- Lottie Player -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    <style>
+        /* INLINED CSS FOR MAXIMUM PERFORMANCE & NO-CACHE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0014;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @keyframes neonPulse {
+            0% {
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff00de, 0 0 30px #ff00de;
+            }
+
+            100% {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #0ff, 0 0 60px #0ff;
+            }
+        }
+
+        @keyframes floatEffect {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(50px, 100px) rotate(10deg);
+            }
+
+            66% {
+                transform: translate(-50px, 50px) rotate(-10deg);
+            }
+        }
+
+        @keyframes roamWolf {
+            0% {
+                left: -300px;
+                transform: scaleX(1);
+            }
+
+            45% {
+                transform: scaleX(1);
+            }
+
+            50% {
+                left: 100%;
+                transform: scaleX(-1);
+            }
+
+            95% {
+                transform: scaleX(-1);
+            }
+
+            100% {
+                left: -300px;
+                transform: scaleX(1);
+            }
+        }
+
+        .floating-emojis {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            font-size: 2.5rem;
+            opacity: 0.2;
+            animation: floatEffect 15s ease-in-out infinite;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #1b0029 0%, #000 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(30, 0, 50, 0.7), rgba(0, 0, 0, 0.9)),
+                url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            filter: grayscale(80%);
+        }
+
+        .wolf-container {
+            position: absolute;
+            bottom: 5%;
+            left: -300px;
+            filter: drop-shadow(0 0 30px #0ff);
+            z-index: 1;
+            animation: roamWolf 25s linear infinite;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            z-index: 10;
+            position: relative;
+            max-width: 90%;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ff00de;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px #ff00de;
+        }
+
+        .title {
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .name {
+            font-size: clamp(3rem, 12vw, 6rem);
+            color: #fff;
+            text-shadow: 0 0 20px #0ff, 0 0 40px #0ff;
+            margin-bottom: 30px;
+            font-weight: 900;
+        }
+
+        .boost-btn {
+            background: rgba(255, 0, 222, 0.1);
+            border: 2px solid #ff00de;
+            color: #ff00de;
+            padding: 12px 30px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 50px;
+            margin-top: 20px;
+            text-shadow: 0 0 10px #ff00de;
+            box-shadow: 0 0 15px rgba(255, 0, 222, 0.3);
+        }
+
+        .boost-btn:hover {
+            background: #ff00de;
+            color: #fff;
+            box-shadow: 0 0 30px #ff00de;
+            transform: scale(1.1);
+        }
+
+        /* Navbar */
+        .navbar {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent);
+        }
+
+        .logo {
+            color: #ff00de;
+            font-weight: 900;
+            font-size: clamp(0.9rem, 4vw, 1.2rem);
+        }
+
+        .date {
+            color: #0ff;
+            font-size: clamp(0.8rem, 3.5vw, 1rem);
+        }
+
+        /* Responsive Sections */
+        .section {
+            padding: 80px 20px;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            border-bottom: 2px solid #ff00de;
+            margin-bottom: 40px;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* Timeline Styling - Mobile First */
+        .timeline {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: #0ff;
+            top: 0;
+            transform: translateX(-50%);
+        }
+
+        .timeline-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+            width: 100%;
+        }
+
+        .timeline-item {
+            width: 42%;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            border-color: #0ff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+        }
+
+        .timeline-item.right {
+            margin-left: auto;
+        }
+
+        .year-marker {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: #000;
+            border: 2px solid #ff00de;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 0 10px #ff00de;
+        }
+
+        /* Message Box */
+        .message-container {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .highlight {
+            font-size: clamp(1.2rem, 5vw, 2rem);
+            color: #0ff;
+            margin: 30px 0;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .timeline::after {
+                left: 30px;
+            }
+
+            .timeline-row {
+                justify-content: flex-start;
+                padding-left: 60px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                text-align: left;
+            }
+
+            .year-marker {
+                left: 30px;
+                transform: translate(-50%, -50%);
+            }
+
+            .timeline-item.right {
+                margin-left: 0;
+            }
+
+            .navbar {
+                padding: 15px;
+            }
+
+            .section {
+                padding: 60px 15px;
+            }
+
+            .hero {
+                padding: 15px;
+            }
+
+            .wolf-container lottie-player {
+                width: 300px !important;
+                height: 300px !important;
+            }
+        }
+
+        /* Hyperdrive Mode Effects */
+        .hyper-mode .name {
+            animation: neonPulse 0.5s infinite alternate;
+        }
+
+        .hyper-mode .hero {
+            background: radial-gradient(circle at center, #2b0054 0%, #000 100%);
+        }
+
+        .hyper-mode .hero::before {
+            filter: brightness(1.2) contrast(1.2);
+        }
+
+        .hyper-mode h3 {
+            color: #ff00de;
+            text-shadow: 0 0 5px #ff00de;
+        }
+
+        footer {
+            padding: 40px;
+            background: #000;
+            text-align: center;
+            border-top: 1px solid #222;
+            margin-top: 50px;
+        }
+
+        footer h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        footer p {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .car-icon-large {
+            font-size: 3rem;
+            margin-top: 20px;
+            display: inline-block;
+            animation: driveOnce 3s linear infinite;
+        }
+
+        @keyframes driveOnce {
+            0% {
+                transform: translateX(-150px);
+            }
+
+            100% {
+                transform: translateX(150px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const App = () => {
+            const [isHyperMode, setIsHyperMode] = useState(false);
+
+            const launchConfetti = () => {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#0ff', '#ff00de', '#ffffff']
+                });
+            };
+
+            const toggleHyperMode = () => {
+                setIsHyperMode(!isHyperMode);
+                if (!isHyperMode) {
+                    launchConfetti();
+                    // Double burst for turbo
+                    setTimeout(launchConfetti, 300);
+                }
+            };
+
+            return (
+                <div className={`app-wrapper ${isHyperMode ? 'hyper-mode' : ''}`}>
+                    {/* Floating Background Elements */}
+                    <div className="floating-emojis">
+                        {[
+                            { t: '15%', l: '10%', d: '0s' },
+                            { t: '45%', l: '85%', d: '3s' },
+                            { t: '75%', l: '15%', d: '6s' },
+                            { t: '85%', l: '70%', d: '1.5s' },
+                            { t: '25%', l: '55%', d: '4.5s' }
+                        ].map((p, i) => (
+                            <div key={i} className="floating-emoji"
+                                style={{ top: p.t, left: p.l, animationDelay: p.d }}>
+                                🐺
+                            </div>
+                        ))}
+                    </div>
+
+                    <nav className="navbar">
+                        <div className="logo">🐺 MRITHUN 18 👑</div>
+                        <div className="date">FEB 21, 2026</div>
+                    </nav>
+
+                    <header className="hero">
+                        <div className="wolf-container">
+                            <lottie-player
+                                src="https://lottie.host/8e207905-1a86-4fdf-9762-b13c7746244f/N1l9zO1E9U.json"
+                                background="transparent"
+                                speed="1"
+                                style={{ width: '400px', height: '400px' }}
+                                loop
+                                autoplay
+                            ></lottie-player>
+                        </div>
+                        <div className="hero-content">
+                            <h2 className="subtitle">THE LEGEND OF THE WOLF 🐺</h2>
+                            <h1 className="title">HAPPY 18TH BIRTHDAY</h1>
+                            <h1 className="name">MRITHUN</h1>
+                            <p style={{ marginTop: '10px', color: '#bbb', fontSize: '0.9rem' }}>Official Level 18 Unlocked 🔓</p>
+                            <button className="boost-btn" onClick={toggleHyperMode}>
+                                {isHyperMode ? "ENGINE NORMAL" : "ACTIVATE TURBO BOOST 🚀"}
+                            </button>
+                        </div>
+                    </header>
+
+                    <section className="section">
+                        <h2 className="section-title">Roadmap to Excellence</h2>
+                        <div className="timeline">
+                            <div className="timeline-row">
+                                <div className="timeline-item">
+                                    <h3>Level 1</h3>
+                                    <p>The journey began. A spark of potential that would redefine the game.</p>
+                                </div>
+                                <div className="year-marker">0-5</div>
+                            </div>
+                            <div className="timeline-row">
+                                <div className="year-marker">12</div>
+                                <div className="timeline-item right">
+                                    <h3>Engine Check</h3>
+                                    <p>Building strength, intelligence, and a heart of a wolf.</p>
+                                </div>
+                            </div>
+                            <div className="timeline-row">
+                                <div className="timeline-item">
+                                    <h3>Max RPM</h3>
+                                    <p>Pushing limits, overcoming obstacles, and ready for greatness.</p>
+                                </div>
+                                <div className="year-marker">17</div>
+                            </div>
+                            <div className="timeline-row">
+                                <div className="year-marker">18</div>
+                                <div className="timeline-item right">
+                                    <h3>LEGENDARY</h3>
+                                    <p>The crown is yours. Happy 18th Birthday, Mrithun! 👑</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="section" style={{ background: 'linear-gradient(to bottom, transparent, rgba(255,0,222,0.05))' }}>
+                        <div className="message-container">
+                            <h2 className="section-title">Message for the Alpha</h2>
+                            <p>"The wolf on the hill is never as hungry as the wolf climbing the hill."</p>
+                            <p className="highlight">Keep Climbing, Mrithun 👑🔥</p>
+                            <p style={{ color: '#888' }}>This is only the beginning of your era.</p>
+                        </div>
+                    </section>
+
+                    <footer>
+                        <h3>Happy 18th Birthday 🐺❤️</h3>
+                        <p>Special Edition for Mrithun's 18th | 🏎️💨</p>
+                        <p style={{ fontSize: '0.7rem', marginTop: '10px' }}>Created by Jotheswaran & Gowthami</p>
+                        <span className="car-icon-large">🏎️💨</span>
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
