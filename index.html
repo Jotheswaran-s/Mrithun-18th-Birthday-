@@ -44,17 +44,7 @@
         // 2. Rename them to photo1.jpg, photo2.jpg, photo3.jpg, photo4.jpg, photo5.jpg
         // 3. Update the list below to use your local files instead of the internet links.
         // ---------------------------------------------------------
-        const mrithunPhotos = [
-            "images/photo1.jpg",
-            "images/photo2.jpg",
-            "images/photo3.jpg",
-            "images/photo4.jpg",
-            "images/photo5.jpg",
-            "images/photo6.jpg",
-            "images/photo7.jpg",
-            "images/photo8.jpg",
-            "images/photo9.jpg"
-        ];
+
 
         const App = () => {
             const headerRef = useRef(null);
@@ -146,7 +136,15 @@
                             {mrithunPhotos.map((src, idx) => (
                                 <div className="photo-card" key={idx}>
                                     <div className="photo-inner">
-                                        <img src={src} alt={`Moment ${idx + 1}`} />
+                                        <img
+                                            src={src}
+                                            alt={`Moment ${idx + 1}`}
+                                            onError={(e) => {
+                                                console.error("Failed to load image:", src);
+                                                e.target.style.border = "2px solid red";
+                                                e.target.src = "https://via.placeholder.com/300x400?text=Image+Not+Found";
+                                            }}
+                                        />
                                     </div>
                                 </div>
                             ))}
